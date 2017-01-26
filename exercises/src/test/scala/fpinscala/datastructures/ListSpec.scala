@@ -40,4 +40,41 @@ class ListSpec extends FlatSpec with Matchers {
   it should "throw an exception when dropping more elements than exist" in {
     a[NotImplementedError] shouldBe thrownBy(drop(List(1, 2), 4))
   }
+
+  "dropWhile" should "drop the first two elements of a simple list" in {
+    dropWhile(List(2, 4, 5), (n: Int) => n % 2 == 0) shouldBe List(5)
+  }
+
+  it should "drop all elements of a list when all match the predicate" in {
+    dropWhile(List(2, 4, 6), (n: Int) => n % 2 == 0) shouldBe Nil
+  }
+
+  "init" should "drop the last element of a simple list" in {
+    init(List(1, 2, 3)) shouldBe List(1, 2)
+  }
+
+  it should "throw an exception on Nil" in {
+    a[NotImplementedError] shouldBe thrownBy(init(Nil))
+  }
+
+  "foldRight" should "recreate a list when the base is Nil and f is Cons" in {
+    foldRight(List(1,2,3), Nil:List[Int])(Cons(_,_)) shouldBe List(1, 2, 3)
+  }
+
+  "length" should "compute the length of a list" in {
+    List.length(List(1, 2, 3)) shouldBe 3
+  }
+
+  "sumLeft" should "sum a list" in {
+    sumLeft(List(1, 2, 3, 4)) shouldBe 10
+  }
+
+  "productLeft" should "multiply a list" in {
+    productLeft(List(1, 2, 3, 4)) shouldBe 24
+  }
+
+  "lengthLeft" should "compute the length of a list" in {
+    List.lengthLeft(List(1, 2, 3, 4)) shouldBe 4
+  }
+
 }
