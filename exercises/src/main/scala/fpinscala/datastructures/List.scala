@@ -148,5 +148,18 @@ object List {
     foldLeft(l, Nil:List[A])((acc, a)=>Cons(a, acc))
   }
 
+  def foldRightUsingFoldLeft[A, B](as: List[A], z: B)(f: (A, B) => B): B = {
+    foldLeft(
+      foldLeft(as, Nil:List[A])((t, h)=> Cons(h,t)), // reverse
+      z)((b, a) => f(a, b))
+  }
+
+  def foldLeftUsingFoldRight[A, B](as: List[A], z: B)(f: (B, A) => B): B = {
+    foldRight(
+      foldRight(as, Nil:List[A])((h, t) =>
+        foldRight(t, Cons(h, Nil:List[A]))(Cons(_, _))), // append h to t
+      z)((a, b) => f(b, a))
+  }
+
   def map[A, B](l: List[A])(f: A => B): List[B] = sys.error("todo")
 }

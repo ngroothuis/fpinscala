@@ -80,4 +80,13 @@ class ListSpec extends FlatSpec with Matchers {
   "reverseFold" should "reverse a list" in {
     reverseFold(List(1, 2, 3, 4)) shouldBe List(4, 3, 2, 1)
   }
+
+
+  "foldLeftUsingFoldRight" should "fold left" in {
+    foldLeftUsingFoldRight(List(4, 3, 2, 1), 10)(_ - _) shouldBe 0
+  }
+
+  "foldRightUsingFoldLeft" should "fold right" in {
+    foldRightUsingFoldLeft(List(4, 3, 2, 1), 10)(_ - _) shouldBe 12
+  }
 }
