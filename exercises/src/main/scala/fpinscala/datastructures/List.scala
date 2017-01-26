@@ -144,5 +144,9 @@ object List {
     foldLeft(l, 0)((n, _) => n + 1)
   }
 
+  def reverseFold[A](l: List[A]): List[A] = {
+    foldLeft(l, Nil:List[A])((acc, a)=>Cons(a, acc))
+  }
+
   def map[A, B](l: List[A])(f: A => B): List[B] = sys.error("todo")
 }

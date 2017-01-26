@@ -77,4 +77,7 @@ class ListSpec extends FlatSpec with Matchers {
     List.lengthLeft(List(1, 2, 3, 4)) shouldBe 4
   }
 
+  "reverseFold" should "reverse a list" in {
+    reverseFold(List(1, 2, 3, 4)) shouldBe List(4, 3, 2, 1)
+  }
 }
