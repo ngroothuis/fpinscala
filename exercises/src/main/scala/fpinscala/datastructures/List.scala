@@ -119,6 +119,8 @@ object List {
   *
   * product() implemented using foldRight() cannot short-circuit when it hits a zero.  The call stack is
   * completely built up before f() is ever evaluated.
+  *
+  * Tamas' note: we can if we can use lazy evaluation.
   * */
 
 
@@ -150,7 +152,7 @@ object List {
 
   def foldRightUsingFoldLeft[A, B](as: List[A], z: B)(f: (A, B) => B): B = {
     foldLeft(
-      foldLeft(as, Nil:List[A])((t, h)=> Cons(h,t)), // reverse
+      foldLeft(as, Nil:List[A])((t, h) => Cons(h,t)), // reverse
       z)((b, a) => f(a, b))
   }
 
@@ -161,5 +163,29 @@ object List {
       z)((a, b) => f(b, a))
   }
 
-  def map[A, B](l: List[A])(f: A => B): List[B] = sys.error("todo")
+  def append[A](as: List[A], a: A): List[A] = {
+      foldRight(as, Cons(a, Nil:List[A]))(Cons(_, _))
+  }
+
+  def flatten[A](ll: List[List[A]]): List[A] = {
+    foldRight(ll, Nil:List[A])((l, acc) => concat(l, acc))
+  }
+
+  def concat[A](l1: List[A], l2: List[A]): List[A] = {
+    foldRight(l1, l2)((a, b) => Cons(a, b))
+  }
+
+  // Can I get this in linear time with foldLeft?
+
+  def flattenLeft[A](ll: List[List[A]]): List[A] = {
+    foldLeft(ll, Nil:List[A])((l, acc) => concat(l, acc))
+  }
+
+  def concatLeft[A](l1: List[A], l2: List[A]): List[A] = {
+    foldLeft(l2, l1)((b, a) => Cons(a, b))
+  }
+
+  def map[A, B](l: List[A])(f: A => B): List[B] = {
+    foldRight(l, Nil: List[B])((a, bs) => Cons(f(a), bs))
+  }
 }
