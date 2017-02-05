@@ -89,4 +89,24 @@ class ListSpec extends FlatSpec with Matchers {
   "foldRightUsingFoldLeft" should "fold right" in {
     foldRightUsingFoldLeft(List(4, 3, 2, 1), 10)(_ - _) shouldBe 12
   }
+
+  "filter" should "filter out odd numbers" in {
+    filter(List(1, 2, 3, 4))((n:Int) => n % 2 != 1) shouldBe List(2, 4)
+  }
+
+  "flatMap(List(1,2,3))(i => List(i,i))" should "result in List(1,1,2,2,3,3)" in {
+    flatMap(List(1,2,3))(i => List(i,i)) shouldBe List(1, 1, 2, 2, 3, 3)
+  }
+
+  "filterUsingFlatmap" should "filter out odd numbers" in {
+    filterUsingFlatmap(List(1, 2, 3, 4))((n:Int) => n % 2 != 1) shouldBe List(2, 4)
+  }
+
+  "addCorrespondingElements" should "add two lists" in {
+    addCorrespondingElements(List(1, 2, 3), List(4, 5, 6)) shouldBe List(5, 7, 9)
+  }
+
+  "zipWith" should "concatenate two lists pairwise" in {
+    zipWith(List("foo", "bar", "baz"), List("bar", "baz", "xyzzy"))(_+_) shouldBe List("foobar", "barbaz", "bazxyzzy")
+  }
 }

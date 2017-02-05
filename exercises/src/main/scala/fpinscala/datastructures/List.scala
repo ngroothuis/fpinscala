@@ -188,4 +188,38 @@ object List {
   def map[A, B](l: List[A])(f: A => B): List[B] = {
     foldRight(l, Nil: List[B])((a, bs) => Cons(f(a), bs))
   }
+
+  def filter[A](as: List[A])(f: A => Boolean): List[A] = {
+    as match {
+      case Nil => Nil
+      case Cons(h, t) => if (f(h)) Cons(h, filter(t)(f)) else filter(t)(f)
+    }
+  }
+
+  def flatMap[A,B](as: List[A])(f: A => List[B]): List[B] = {
+    foldRight(as, Nil:List[B])((a: A, bs: List[B]) =>
+    foldRight(f(a), bs)((fa: B, acc: List[B]) => Cons(fa, acc)))
+  }
+
+  def filterUsingFlatmap[A](as: List[A])(f: A => Boolean): List[A] = {
+    flatMap(as)((a: A) => if (f(a)) Cons(a, Nil) else Nil)
+  }
+
+  def addCorrespondingElements(as: List[Int], bs: List[Int]): List[Int] = {
+    (as, bs) match {
+      case (Nil, Nil) => Nil
+      case (_, Nil) => ???
+      case (Nil, _) => ???
+      case (Cons(ha, ta), Cons(hb, tb)) => Cons(ha + hb, addCorrespondingElements(ta, tb))
+    }
+  }
+
+  def zipWith[A, B, C](as: List[A], bs: List[B])(f: (A, B) => C): List[C] = {
+    (as, bs) match {
+      case (Nil, Nil) => Nil
+      case (_, Nil) => ???
+      case (Nil, _) => ???
+      case (Cons(ha, ta), Cons(hb, tb)) => Cons(f(ha, hb), zipWith(ta, tb)(f))
+    }
+  }
 }
