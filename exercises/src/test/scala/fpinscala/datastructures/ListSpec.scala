@@ -109,4 +109,24 @@ class ListSpec extends FlatSpec with Matchers {
   "zipWith" should "concatenate two lists pairwise" in {
     zipWith(List("foo", "bar", "baz"), List("bar", "baz", "xyzzy"))(_+_) shouldBe List("foobar", "barbaz", "bazxyzzy")
   }
+
+  "List(1, 2, 3, 4)" should "have List(1, 2) as a sublist" in {
+    hasSubsequence(List(1, 2, 3, 4), List(1, 2)) shouldBe true
+  }
+
+  "List(1, 2, 3, 4)" should "have List(3, 4) as a sublist" in {
+    hasSubsequence(List(1, 2, 3, 4), List(3, 4)) shouldBe true
+  }
+
+  "List(1, 2, 3, 4)" should "have List(4) as a sublist" in {
+    hasSubsequence(List(1, 2, 3, 4), List(4)) shouldBe true
+  }
+
+  "List(1, 2, 3, 4)" should "not have List(3, 2) as a sublist" in {
+    hasSubsequence(List(1, 2, 3, 4), List(3, 2)) shouldBe false
+  }
+
+  "List(1, 2, 3, 4)" should "not have List(5) as a sublist" in {
+    hasSubsequence(List(1, 2, 3, 4), List(5)) shouldBe false
+  }
 }
