@@ -121,6 +121,7 @@ class ListSpec extends FlatSpec with Matchers {
   "List(1, 2, 3, 4)" should "have List(4) as a sublist" in {
     hasSubsequence(List(1, 2, 3, 4), List(4)) shouldBe true
   }
+  */
 
   "List(1, 2, 3, 4)" should "not have List(3, 2) as a sublist" in {
     hasSubsequence(List(1, 2, 3, 4), List(3, 2)) shouldBe false
@@ -129,5 +130,4 @@ class ListSpec extends FlatSpec with Matchers {
   "List(1, 2, 3, 4)" should "not have List(5) as a sublist" in {
     hasSubsequence(List(1, 2, 3, 4), List(5)) shouldBe false
   }
-  */
 }
