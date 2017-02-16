@@ -1,0 +1,4 @@
+codecov:
+  notify:              # [advanced] usage only
+    after_n_builds: 1  # how many build to wait for before submitting notifications
+                       # therefore skipping status checks
