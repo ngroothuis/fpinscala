@@ -44,4 +44,12 @@ class OptionSpec extends FlatSpec with Matchers {
     None.orElse(Some(4)) shouldBe Some(4)
     None.orElse(None) shouldBe None
   }
+
+  "variance" should "calculate the variance of a collection of numbers" in {
+    Option.variance(List(1.0, 2.0, 3.0)) shouldBe Some(2.0 / 3.0)
+  }
+
+  it should "return None for an empty collection" in {
+    Option.variance(List()) shouldBe None
+  }
 }
