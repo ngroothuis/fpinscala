@@ -52,4 +52,12 @@ class OptionSpec extends FlatSpec with Matchers {
   it should "return None for an empty collection" in {
     Option.variance(List()) shouldBe None
   }
+
+  "map2" should "only return a value when both parameters are present" in {
+    val f = (a: Int, b: Int) => a + b
+    Option.map2(Some(1), Some(2))(f) shouldBe Some(3)
+    Option.map2(Some(1), None)(f) shouldBe None
+    Option.map2(None, Some(2))(f) shouldBe None
+    Option.map2(None, None)(f) shouldBe None
+  }
 }
