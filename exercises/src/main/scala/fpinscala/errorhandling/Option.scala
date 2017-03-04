@@ -56,10 +56,15 @@ object Option {
     a.flatMap(av => b.map(bv => f(av, bv)))
   }
 
-  def sequence[A](a: List[Option[A]]): Option[List[A]] = a match {
-    case Nil => Some(List())
-    case h :: t => h.flatMap(hv => sequence(t).flatMap(tv => Some(hv :: tv)))
-  }
+//  def sequence[A](a: List[Option[A]]): Option[List[A]] = a match {
+//    case Nil => Some(List())
+//    case h :: t => h.flatMap(hv => sequence(t).flatMap(tv => Some(hv :: tv)))
+//  }
 
-  def traverse[A, B](a: List[A])(f: A => Option[B]): Option[List[B]] = sys.error("todo")
+  def sequence[A](a: List[Option[A]]): Option[List[A]] = traverse(a)(identity)
+
+  def traverse[A, B](a: List[A])(f: A => Option[B]): Option[List[B]] = a match {
+    case Nil => Some(Nil)
+    case h :: t => f(h).flatMap(b => traverse(t)(f).map(tv => b :: tv))
+  }
 }

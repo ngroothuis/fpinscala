@@ -1,6 +1,7 @@
 package fpinscala.errorhandling
 
 import org.scalatest.{FlatSpec, Matchers}
+import Option.traverse
 
 /**
   * Test specifications for the Option class.
@@ -67,5 +68,11 @@ class OptionSpec extends FlatSpec with Matchers {
     Option.sequence(List(Some(1), None, Some(3))) shouldBe None
     Option.sequence(List(None, Some(2), Some(3))) shouldBe None
     Option.sequence(List(Some(1), Some(2), None)) shouldBe None
+  }
+
+  "traverse" should "return a value only if all computations succeed" in {
+    def oddsPass(i: Int): Option[Int] = if (i % 2 == 0) None else Some(i)
+    Option.traverse(List(1, 3, 5))(oddsPass) shouldBe Some(List(1, 3, 5))
+    Option.traverse(List(1, 2, 5))(oddsPass) shouldBe None
   }
 }
