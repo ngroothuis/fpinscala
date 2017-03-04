@@ -60,4 +60,12 @@ class OptionSpec extends FlatSpec with Matchers {
     Option.map2(None, Some(2))(f) shouldBe None
     Option.map2(None, None)(f) shouldBe None
   }
+
+  "sequence" should "return a list of options iff all values passed in are present" in {
+    Option.sequence(List(Some(1), Some(2), Some(3))) shouldBe Some(List(1, 2, 3))
+    Option.sequence(List()) shouldBe Some(List())
+    Option.sequence(List(Some(1), None, Some(3))) shouldBe None
+    Option.sequence(List(None, Some(2), Some(3))) shouldBe None
+    Option.sequence(List(Some(1), Some(2), None)) shouldBe None
+  }
 }
