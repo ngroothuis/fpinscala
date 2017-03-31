@@ -66,7 +66,11 @@ trait Stream[+A] {
     foldRight(empty[B])((a, b) => f(a).append(b))
   }
 
-  def startsWith[B](s: Stream[B]): Boolean = sys.error("todo")
+  def startsWith[B](s: Stream[B]): Boolean = zipAll(s).foldRight(true)((ab, c) => ab match {
+    case (None, _) => false
+    case (Some(_), None) => true
+    case (Some(a), Some(b)) => (a == b) && c
+  })
 
   def mapUnfold[B](f: A => B): Stream[B] = unfold(this) {
     case Empty => None
