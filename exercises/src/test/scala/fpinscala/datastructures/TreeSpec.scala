@@ -8,7 +8,12 @@ import org.scalatest.{FlatSpec, Matchers}
   */
 class TreeSpec extends FlatSpec with Matchers {
 
+  val oneNodeTree = Leaf(1)
   val fiveNodeTree = Branch(Branch(Leaf(1), Leaf(2)), Leaf(3))
+
+  "oneNodeTree" should "have a depth of 0" in {
+    depth(oneNodeTree) shouldBe 1
+  }
 
   "fiveNodeTree" should "have five nodes" in {
     Tree.size(fiveNodeTree) shouldBe 5
