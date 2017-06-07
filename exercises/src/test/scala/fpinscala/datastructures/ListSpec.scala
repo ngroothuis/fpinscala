@@ -8,7 +8,7 @@ import List._
   * Test specifications for the List class.
   */
 class ListSpec extends FlatSpec with Matchers {
-
+/*
   "Exercise 3.1 match expression" should "be 3" in {
    x shouldBe 3
   }
@@ -121,6 +121,7 @@ class ListSpec extends FlatSpec with Matchers {
   "List(1, 2, 3, 4)" should "have List(4) as a sublist" in {
     hasSubsequence(List(1, 2, 3, 4), List(4)) shouldBe true
   }
+  */
 
   "List(1, 2, 3, 4)" should "not have List(3, 2) as a sublist" in {
     hasSubsequence(List(1, 2, 3, 4), List(3, 2)) shouldBe false
